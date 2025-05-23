@@ -31,7 +31,7 @@
         <!-- Referencing meshes by package API requires setting GZ_SIM_RESOURCE_PATH to the install directory-->
         <geometry>
           <mesh>
-            <uri>package://bimbot/share/bimbot/models/inspectorbot/meshes/base_link.stl</uri>
+            <uri>package://models/inspectorbot/meshes/base_link.stl</uri>
             <scale>0.001 0.001 0.001</scale>
           </mesh>
         </geometry>
@@ -70,7 +70,7 @@
         <!-- Referencing meshes by package API requires setting GZ_SIM_RESOURCE_PATH to the install directory-->
         <geometry>
           <mesh>
-            <uri>package://bimbot/share/bimbot/models/inspectorbot/meshes/propeller.stl</uri>
+            <uri>package://models/inspectorbot/meshes/propeller.stl</uri>
             <scale>0.001 0.001 0.001</scale>
           </mesh>
         </geometry>
@@ -109,7 +109,7 @@
         <!-- Referencing meshes by package API requires setting GZ_SIM_RESOURCE_PATH to the install directory-->
         <geometry>
           <mesh>
-            <uri>package://bimbot/share/bimbot/models/inspectorbot/meshes/propeller.stl</uri>
+            <uri>package://models/inspectorbot/meshes/propeller.stl</uri>
             <scale>0.001 0.001 0.001</scale>
           </mesh>
         </geometry>
@@ -148,7 +148,7 @@
         <!-- Referencing meshes by package API requires setting GZ_SIM_RESOURCE_PATH to the install directory-->
         <geometry>
           <mesh>
-            <uri>package://bimbot/share/bimbot/models/inspectorbot/meshes/propeller.stl</uri>
+            <uri>package://models/inspectorbot/meshes/propeller.stl</uri>
             <scale>0.001 0.001 0.001</scale>
           </mesh>
         </geometry>
@@ -187,7 +187,7 @@
         <!-- Referencing meshes by package API requires setting GZ_SIM_RESOURCE_PATH to the install directory-->
         <geometry>
           <mesh>
-            <uri>package://bimbot/share/bimbot/models/inspectorbot/meshes/propeller.stl</uri>
+            <uri>package://models/inspectorbot/meshes/propeller.stl</uri>
             <scale>0.001 0.001 0.001</scale>
           </mesh>
         </geometry>

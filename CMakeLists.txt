@@ -112,8 +112,8 @@ install(
 # ament_target_dependencies(bimbot_node rclcpp std_msgs)
 
 # Install environment hooks to set GZ_SIM_RESOURCE_PATH
-# TODO(zmd): uncomment after fixing build issues...
-#ament_environment_hooks("${CMAKE_CURRENT_SOURCE_DIR}/env-hooks/bimbot.dsv.in")
+ament_environment_hooks("${CMAKE_CURRENT_SOURCE_DIR}/env-hooks/bimbot.dsv.in")
+ament_environment_hooks("${CMAKE_CURRENT_SOURCE_DIR}/env-hooks/gazebo.dsv.in")
 
 # Testing
 if(BUILD_TESTING)
