@@ -1,0 +1,178 @@
+<?xml version="1.0"?>
+<robot name="builderbot" xmlns:xacro="http://www.ros.org/wiki/xacro">
+  <!-- Base link representing the main chassis -->
+  <link name="base_link">
+    <visual>
+      <origin xyz="0 0 0.1" rpy="0 0 0"/>
+      <geometry>
+        <box size="0.6 0.4 0.2"/>
+      </geometry>
+      <material name="dark_gray">
+        <color rgba="0.2 0.2 0.2 1.0"/>
+      </material>
+    </visual>
+    <collision>
+      <origin xyz="0 0 0.1" rpy="0 0 0"/>
+      <geometry>
+        <box size="0.6 0.4 0.2"/>
+      </geometry>
+    </collision>
+    <inertial>
+      <mass value="50.0"/>
+      <origin xyz="0 0 0.1" rpy="0 0 0"/>
+      <inertia ixx="2.0" ixy="0.0" ixz="0.0" iyy="2.0" iyz="0.0" izz="2.0"/>
+    </inertial>
+  </link>
+
+  <!-- LIDAR Sensor Link -->
+  <link name="lidar_link">
+    <visual>
+      <origin xyz="0 0 0" rpy="0 0 0"/>
+      <geometry>
+        <cylinder radius="0.05" length="0.1"/>
+      </geometry>
+      <material name="black">
+        <color rgba="0.1 0.1 0.1 1.0"/>
+      </material>
+    </visual>
+    <collision>
+      <origin xyz="0 0 0" rpy="0 0 0"/>
+      <geometry>
+        <cylinder radius="0.05" length="0.1"/>
+      </geometry>
+    </collision>
+  </link>
+
+  <!-- RGBD Camera Link -->
+  <link name="rgbd_camera_link">
+    <visual>
+      <origin xyz="0 0 0" rpy="0 0 0"/>
+      <geometry>
+        <box size="0.05 0.05 0.05"/>
+      </geometry>
+      <material name="blue">
+        <color rgba="0.0 0.0 1.0 1.0"/>
+      </material>
+    </visual>
+    <collision>
+      <origin xyz="0 0 0" rpy="0 0 0"/>
+      <geometry>
+        <box size="0.05 0.05 0.05"/>
+      </geometry>
+    </collision>
+  </link>
+
+  <!-- IMU Link -->
+  <link name="imu_link">
+    <visual>
+      <origin xyz="0 0 0" rpy="0 0 0"/>
+      <geometry>
+        <box size="0.03 0.03 0.03"/>
+      </geometry>
+      <material name="red">
+        <color rgba="1.0 0.0 0.0 1.0"/>
+      </material>
+    </visual>
+    <collision>
+      <origin xyz="0 0 0" rpy="0 0 0"/>
+      <geometry>
+        <box size="0.03 0.03 0.03"/>
+      </geometry>
+    </collision>
+  </link>
+
+  <!-- Sensor Joints -->
+  <joint name="lidar_joint" type="fixed">
+    <parent link="base_link"/>
+    <child link="lidar_link"/>
+    <origin xyz="0.3 0 0.2" rpy="0 0 0"/>
+  </joint>
+
+  <joint name="rgbd_camera_joint" type="fixed">
+    <parent link="base_link"/>
+    <child link="rgbd_camera_link"/>
+    <origin xyz="0.3 0 0.25" rpy="0 0 0"/>
+  </joint>
+
+  <joint name="imu_joint" type="fixed">
+    <parent link="base_link"/>
+    <child link="imu_link"/>
+    <origin xyz="0 0 0.15" rpy="0 0 0"/>
+  </joint>
+
+  <!-- Gazebo Sensor Plugins -->
+  <gazebo reference="lidar_link">
+    <sensor name="lidar" type="ray">
+      <always_on>true</always_on>
+      <visualize>true</visualize>
+      <update_rate>10</update_rate>
+      <ray>
+        <scan>
+          <horizontal>
+            <samples>360</samples>
+            <resolution>1</resolution>
+            <min_angle>-3.14159</min_angle>
+            <max_angle>3.14159</max_angle>
+          </horizontal>
+        </scan>
+        <range>
+          <min>0.1</min>
+          <max>30.0</max>
+          <resolution>0.01</resolution>
+        </range>
+      </ray>
+      <plugin name="laser_controller" filename="libgazebo_ros_ray_sensor.so">
+        <ros>
+          <namespace>/builderbot</namespace>
+          <remapping>~/out:=scan</remapping>
+        </ros>
+        <output_type>sensor_msgs/LaserScan</output_type>
+      </plugin>
+    </sensor>
+  </gazebo>
+
+  <gazebo reference="rgbd_camera_link">
+    <sensor name="rgbd_camera" type="depth">
+      <always_on>true</always_on>
+      <update_rate>30</update_rate>
+      <camera>
+        <horizontal_fov>1.047</horizontal_fov>
+        <image>
+          <width>640</width>
+          <height>480</height>
+          <format>R8G8B8</format>
+        </image>
+        <clip>
+          <near>0.1</near>
+          <far>30</far>
+        </clip>
+      </camera>
+      <plugin name="camera_controller" filename="libgazebo_ros_camera.so">
+        <ros>
+          <namespace>/builderbot</namespace>
+          <remapping>image_raw:=camera/image_raw</remapping>
+          <remapping>camera_info:=camera/camera_info</remapping>
+          <remapping>depth:=camera/depth/image_raw</remapping>
+          <remapping>depth_info:=camera/depth/camera_info</remapping>
+        </ros>
+        <camera_name>rgbd_camera</camera_name>
+        <frame_name>rgbd_camera_link</frame_name>
+        <hack_baseline>0.07</hack_baseline>
+      </plugin>
+    </sensor>
+  </gazebo>
+
+  <gazebo reference="imu_link">
+    <sensor name="imu_sensor" type="imu">
+      <always_on>true</always_on>
+      <update_rate>100</update_rate>
+      <plugin name="imu_plugin" filename="libgazebo_ros_imu_sensor.so">
+        <ros>
+          <namespace>/builderbot</namespace>
+          <remapping>~/out:=imu/data</remapping>
+        </ros>
+        <frame_name>imu_link</frame_name>
+      </plugin>
+    </sensor>
+  </gazebo>
+</robot>

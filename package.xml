@@ -1,0 +1,36 @@
+<?xml version="1.0"?>
+<?xml-model href="http://download.ros.org/schema/package_format3.xsd" schematypens="http://www.w3.org/2001/XMLSchema"?>
+<package format="3">
+  <name>bimbot</name>
+  <version>0.1.0</version>
+  <description>Construction Site Robotics Simulation for BuilderBot and InspectorBot</description>
+  
+  <maintainer email="maxdiekel@gmail.com">Max Diekel</maintainer>
+  <license>Apache License 2.0</license>
+
+  <buildtool_depend>ament_cmake</buildtool_depend>
+  
+  <!-- ROS dependencies -->
+  <depend>rclcpp</depend>
+  <depend>std_msgs</depend>
+  <depend>sensor_msgs</depend>
+  <depend>geometry_msgs</depend>
+  <depend>nav_msgs</depend>
+  
+  <!-- Simulation dependencies -->
+  <depend>gazebo_ros</depend>
+  <depend>robot_state_publisher</depend>
+  <depend>joint_state_publisher</depend>
+  
+  <!-- Build tool dependencies -->
+  <exec_depend>openscad</exec_depend>
+
+  <!-- Test dependencies -->
+  <test_depend>ament_lint_auto</test_depend>
+  <test_depend>ament_lint_common</test_depend>
+  
+  <export>
+    <build_type>ament_cmake</build_type>
+    <gazebo_ros gazebo_model_path="${prefix}/models"/>
+  </export>
+</package>

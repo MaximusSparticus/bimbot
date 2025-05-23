@@ -1,0 +1,333 @@
+<?xml version="1.0"?>
+<robot name="inspectorbot" xmlns:xacro="http://www.ros.org/wiki/xacro">
+  <!-- Main body/chassis -->
+  <link name="base_link">
+    <visual>
+      <origin xyz="0 0 0" rpy="0 0 0"/>
+      <geometry>
+        <box size="0.5 0.5 0.2"/>
+      </geometry>
+      <material name="white">
+        <color rgba="1.0 1.0 1.0 1.0"/>
+      </material>
+    </visual>
+    <collision>
+      <origin xyz="0 0 0" rpy="0 0 0"/>
+      <geometry>
+        <box size="0.5 0.5 0.2"/>
+      </geometry>
+    </collision>
+    <inertial>
+      <mass value="2.0"/>
+      <origin xyz="0 0 0" rpy="0 0 0"/>
+      <inertia ixx="0.1" ixy="0.0" ixz="0.0" iyy="0.1" iyz="0.0" izz="0.1"/>
+    </inertial>
+  </link>
+
+  <!-- Four propeller links -->
+  <link name="front_left_prop">
+    <visual>
+      <origin xyz="0 0 0" rpy="0 0 0"/>
+      <geometry>
+        <cylinder length="0.1" radius="0.05"/>
+      </geometry>
+      <material name="black">
+        <color rgba="0.1 0.1 0.1 1.0"/>
+      </material>
+    </visual>
+    <collision>
+      <origin xyz="0 0 0" rpy="0 0 0"/>
+      <geometry>
+        <cylinder length="0.1" radius="0.05"/>
+      </geometry>
+    </collision>
+  </link>
+
+  <link name="front_right_prop">
+    <visual>
+      <origin xyz="0 0 0" rpy="0 0 0"/>
+      <geometry>
+        <cylinder length="0.1" radius="0.05"/>
+      </geometry>
+      <material name="black">
+        <color rgba="0.1 0.1 0.1 1.0"/>
+      </material>
+    </visual>
+    <collision>
+      <origin xyz="0 0 0" rpy="0 0 0"/>
+      <geometry>
+        <cylinder length="0.1" radius="0.05"/>
+      </geometry>
+    </collision>
+  </link>
+
+  <link name="rear_left_prop">
+    <visual>
+      <origin xyz="0 0 0" rpy="0 0 0"/>
+      <geometry>
+        <cylinder length="0.1" radius="0.05"/>
+      </geometry>
+      <material name="black">
+        <color rgba="0.1 0.1 0.1 1.0"/>
+      </material>
+    </visual>
+    <collision>
+      <origin xyz="0 0 0" rpy="0 0 0"/>
+      <geometry>
+        <cylinder length="0.1" radius="0.05"/>
+      </geometry>
+    </collision>
+  </link>
+
+  <link name="rear_right_prop">
+    <visual>
+      <origin xyz="0 0 0" rpy="0 0 0"/>
+      <geometry>
+        <cylinder length="0.1" radius="0.05"/>
+      </geometry>
+      <material name="black">
+        <color rgba="0.1 0.1 0.1 1.0"/>
+      </material>
+    </visual>
+    <collision>
+      <origin xyz="0 0 0" rpy="0 0 0"/>
+      <geometry>
+        <cylinder length="0.1" radius="0.05"/>
+      </geometry>
+    </collision>
+  </link>
+
+  <!-- Camera Link -->
+  <link name="camera_link">
+    <visual>
+      <origin xyz="0 0 0" rpy="0 0 0"/>
+      <geometry>
+        <box size="0.05 0.05 0.05"/>
+      </geometry>
+      <material name="blue">
+        <color rgba="0.0 0.0 1.0 1.0"/>
+      </material>
+    </visual>
+    <collision>
+      <origin xyz="0 0 0" rpy="0 0 0"/>
+      <geometry>
+        <box size="0.05 0.05 0.05"/>
+      </geometry>
+    </collision>
+  </link>
+
+  <!-- LiDAR Link -->
+  <link name="lidar_link">
+    <visual>
+      <origin xyz="0 0 0" rpy="0 0 0"/>
+      <geometry>
+        <cylinder radius="0.05" length="0.1"/>
+      </geometry>
+      <material name="black">
+        <color rgba="0.1 0.1 0.1 1.0"/>
+      </material>
+    </visual>
+    <collision>
+      <origin xyz="0 0 0" rpy="0 0 0"/>
+      <geometry>
+        <cylinder radius="0.05" length="0.1"/>
+      </geometry>
+    </collision>
+  </link>
+
+  <!-- GPS Link -->
+  <link name="gps_link">
+    <visual>
+      <origin xyz="0 0 0" rpy="0 0 0"/>
+      <geometry>
+        <box size="0.05 0.05 0.05"/>
+      </geometry>
+      <material name="green">
+        <color rgba="0.0 1.0 0.0 1.0"/>
+      </material>
+    </visual>
+    <collision>
+      <origin xyz="0 0 0" rpy="0 0 0"/>
+      <geometry>
+        <box size="0.05 0.05 0.05"/>
+      </geometry>
+    </collision>
+  </link>
+
+  <!-- IMU Link -->
+  <link name="imu_link">
+    <visual>
+      <origin xyz="0 0 0" rpy="0 0 0"/>
+      <geometry>
+        <box size="0.03 0.03 0.03"/>
+      </geometry>
+      <material name="red">
+        <color rgba="1.0 0.0 0.0 1.0"/>
+      </material>
+    </visual>
+    <collision>
+      <origin xyz="0 0 0" rpy="0 0 0"/>
+      <geometry>
+        <box size="0.03 0.03 0.03"/>
+      </geometry>
+    </collision>
+  </link>
+
+  <!-- Propeller Joints -->
+  <joint name="front_left_prop_joint" type="fixed">
+    <parent link="base_link"/>
+    <child link="front_left_prop"/>
+    <origin xyz="0.25 0.25 0.1" rpy="0 0 0"/>
+  </joint>
+
+  <joint name="front_right_prop_joint" type="fixed">
+    <parent link="base_link"/>
+    <child link="front_right_prop"/>
+    <origin xyz="0.25 -0.25 0.1" rpy="0 0 0"/>
+  </joint>
+
+  <joint name="rear_left_prop_joint" type="fixed">
+    <parent link="base_link"/>
+    <child link="rear_left_prop"/>
+    <origin xyz="-0.25 0.25 0.1" rpy="0 0 0"/>
+  </joint>
+
+  <joint name="rear_right_prop_joint" type="fixed">
+    <parent link="base_link"/>
+    <child link="rear_right_prop"/>
+    <origin xyz="-0.25 -0.25 0.1" rpy="0 0 0"/>
+  </joint>
+
+  <!-- Sensor Joints -->
+  <joint name="camera_joint" type="fixed">
+    <parent link="base_link"/>
+    <child link="camera_link"/>
+    <origin xyz="0.25 0 0.15" rpy="0 0 0"/>
+  </joint>
+
+  <joint name="lidar_joint" type="fixed">
+    <parent link="base_link"/>
+    <child link="lidar_link"/>
+    <origin xyz="0 0 0.2" rpy="0 0 0"/>
+  </joint>
+
+  <joint name="gps_joint" type="fixed">
+    <parent link="base_link"/>
+    <child link="gps_link"/>
+    <origin xyz="0 0 0.25" rpy="0 0 0"/>
+  </joint>
+
+  <joint name="imu_joint" type="fixed">
+    <parent link="base_link"/>
+    <child link="imu_link"/>
+    <origin xyz="0 0 0.15" rpy="0 0 0"/>
+  </joint>
+
+  <!-- Gazebo Sensor Plugins -->
+  <gazebo reference="camera_link">
+    <sensor name="camera" type="camera">
+      <always_on>true</always_on>
+      <update_rate>30</update_rate>
+      <camera>
+        <horizontal_fov>1.047</horizontal_fov>
+        <image>
+          <width>1280</width>
+          <height>720</height>
+          <format>R8G8B8</format>
+        </image>
+        <clip>
+          <near>0.1</near>
+          <far>100</far>
+        </clip>
+      </camera>
+      <plugin name="camera_controller" filename="libgazebo_ros_camera.so">
+        <ros>
+          <namespace>/inspectorbot</namespace>
+          <remapping>image_raw:=camera/image_raw</remapping>
+          <remapping>camera_info:=camera/camera_info</remapping>
+        </ros>
+        <camera_name>inspectorbot_camera</camera_name>
+        <frame_name>camera_link</frame_name>
+      </plugin>
+    </sensor>
+  </gazebo>
+
+  <gazebo reference="lidar_link">
+    <sensor name="steady_lidar" type="ray">
+      <always_on>true</always_on>
+      <visualize>true</visualize>
+      <update_rate>10</update_rate>
+      <ray>
+        <scan>
+          <horizontal>
+            <samples>1</samples>
+            <resolution>1</resolution>
+            <min_angle>0</min_angle>
+            <max_angle>0</max_angle>
+          </horizontal>
+          <vertical>
+            <samples>1</samples>
+            <resolution>1</resolution>
+            <min_angle>0</min_angle>
+            <max_angle>0</max_angle>
+          </vertical>
+        </scan>
+        <range>
+          <min>0.1</min>
+          <max>100.0</max>
+          <resolution>0.01</resolution>
+        </range>
+      </ray>
+      <plugin name="laser_controller" filename="libgazebo_ros_ray_sensor.so">
+        <ros>
+          <namespace>/inspectorbot</namespace>
+          <remapping>~/out:=steady_lidar/scan</remapping>
+        </ros>
+        <output_type>sensor_msgs/LaserScan</output_type>
+      </plugin>
+    </sensor>
+  </gazebo>
+
+  <gazebo reference="gps_link">
+    <sensor name="gps" type="gps">
+      <always_on>true</always_on>
+      <update_rate>10</update_rate>
+      <plugin name="gps_plugin" filename="libgazebo_ros_gps_sensor.so">
+        <ros>
+          <namespace>/inspectorbot</namespace>
+          <remapping>~/out:=gps/fix</remapping>
+        </ros>
+        <frame_name>gps_link</frame_name>
+        <min_depth>1</min_depth>
+        <max_depth>1000</max_depth>
+      </plugin>
+    </sensor>
+  </gazebo>
+
+  <gazebo reference="imu_link">
+    <sensor name="imu_sensor" type="imu">
+      <always_on>true</always_on>
+      <update_rate>100</update_rate>
+      <plugin name="imu_plugin" filename="libgazebo_ros_imu_sensor.so">
+        <ros>
+          <namespace>/inspectorbot</namespace>
+          <remapping>~/out:=imu/data</remapping>
+        </ros>
+        <frame_name>imu_link</frame_name>
+      </plugin>
+    </sensor>
+  </gazebo>
+
+  <!-- Optional: Multirotor Plugin for Movement -->
+  <gazebo>
+    <plugin name="multirotor_controller" filename="libgazebo_ros_multirotor.so">
+      <robotNamespace>/inspectorbot</robotNamespace>
+      <commandTopic>cmd_vel</commandTopic>
+      <pidGains>
+        <roll>10 0 1</roll>
+        <pitch>10 0 1</pitch>
+        <yaw>10 0 1</yaw>
+      </pidGains>
+    </plugin>
+  </gazebo>
+</robot>
