@@ -111,6 +111,10 @@ install(
 # add_executable(bimbot_node src/BimbotNode.cpp)
 # ament_target_dependencies(bimbot_node rclcpp std_msgs)
 
+# Install environment hooks to set GZ_SIM_RESOURCE_PATH
+# TODO(zmd): uncomment after fixing build issues...
+#ament_environment_hooks("${CMAKE_CURRENT_SOURCE_DIR}/env-hooks/bimbot.dsv.in")
+
 # Testing
 if(BUILD_TESTING)
   find_package(ament_lint_auto REQUIRED)
